@@ -1,0 +1,59 @@
+
+ADMIN ROUTES
+
+post methods
+    
+    login admin - /admin/login
+    
+    workspace
+        create workspace - /admin/workspace
+    
+    project
+        create project - /admin/project
+    
+    team
+        create team - /admin/team
+
+    user
+        create user - /admin/user
+
+
+get methods
+
+    get admin - /admin
+
+    workspace
+        get workspaces [list] - /admin/workspace
+        get workspace - /admin/workspace/:id
+
+    team
+        get teams [list] - /admin/team
+        get team - /admin/team/:id
+    
+    user
+        get users [list] - /admin/user
+        get user - /admin/user/id
+
+
+put methods
+
+    workspace
+        put workspace - /admin/workspace/:id
+    
+    team
+        put team - /admin/team/:id
+    
+    user 
+        put user - /admin/user/:id
+    
+
+delete methods
+
+    workspace
+        delete workspace - /admin/workspace/:id
+    
+    team
+        delete team - /admin/team/:id
+    
+    user 
+        delete user - /admin/user/:id

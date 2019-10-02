@@ -1,0 +1,9 @@
+{
+  "db": {
+    "connection-string": "mongodb://127.0.0.1:27017/taskman"
+  },
+
+  "jwt": {
+    "secret": "@@taskman@@"
+  }
+}
