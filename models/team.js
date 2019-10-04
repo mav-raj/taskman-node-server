@@ -9,7 +9,7 @@ const validateTeam = value => {
         description: joi.string(),
         users: joi.string().required()
     });
-    return joi.validate(value, schema);
+    return schema.validate(value);
 }
 
 // schema

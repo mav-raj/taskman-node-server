@@ -6,9 +6,11 @@ const joi = require('@hapi/joi');
 const validateMessage = value => {
     const schema = joi.object().keys({
         message: joi.string().required(),
-        created_by: joi.string().required()
+        task: joi.string().required(),
+        created_by: joi.string(),
+        created_at: joi.string(),
     });
-    return joi.validate(value, schema);
+    return schema.validate(value);
 }
 
 // schema 
@@ -18,9 +20,18 @@ const messageSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        task: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "task",
+            required: true,
+        },
         created_by: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "user",
+            required: true,
+        },
+        created_at: {
+            type: Date,
             required: true,
         }
     },

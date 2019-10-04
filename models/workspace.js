@@ -6,9 +6,9 @@ const joi = require('@hapi/joi');
 const validateWorkspace = value => {
     const schema = joi.object().keys({
         name: joi.string().required(),
-        projects: joi.array().items(joi.string())
+        description: joi.string()
     });
-    return joi.validate(value, schema);
+    return schema.validate(value);
 }
 
 // schema 
@@ -18,11 +18,9 @@ const workspaceSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        projects: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "project",
-            required: true,
-        }]
+        description: {
+            type: String,
+        }
     },
     {
         timestamps: true

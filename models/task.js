@@ -2,21 +2,29 @@
 const mongoose = require('mongoose');
 const joi = require('@hapi/joi');
 
+//constants-import
+const TASK_INTERVAL = require('../assets/constants').TASK_DEFAULT_INTERVAL;
+
 // joi validation
 const validateTask = value => {
     const schema = joi.object().keys({
         name: joi.string().required(),
         description: joi.string(),
-        start_time: joi.date().timestamp().required(),
-        end_time: joi.date().timestamp().required(),
+        start_time: joi.string(),
+        end_time: joi.string(),
         priority: joi.number().required(),
         flag: joi.string(),
-        user: joi.string(),
-        messages: joi.string()
+        user_assigned: joi.string(),
+        project: joi.string().required(),
     });
-    return joi.validate(value, schema)
+    return schema.validate(value)
 }
+// for setting default end_time for a task if not provided
+let currTime = new Date();
+let currTimeString = currTime.toLocaleString();
 
+let tenDaysAhead = new Date(currTime.setTime(currTime.getTime() + TASK_INTERVAL * 86400000));
+let daysAheadString = tenDaysAhead.toLocaleString();
 // schema
 const taskSchema = new mongoose.Schema(
     {
@@ -29,30 +37,33 @@ const taskSchema = new mongoose.Schema(
         },
         start_time: {
             type: Date,
-            required: true
+            required: true,
+            default: currTimeString
+        },
+        end_time: {
+            type: Date,
+            required: true,
+            default: daysAheadString
         },
         priority: {
             type: Number,
             required: true
         },
-        end_time: {
-            type: Date,
-            required: true
-        },
         flag: {
             type: String,
-            enum: ["ongoing", "exceded", "completed"],
-            required: true
+            enum: ["yet to start", "ongoing", "exceded", "completed"],
+            default: "yet to start"
         },
-        user: {
+        user_assigned: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "user"
         },
-        messages: [{
+        project: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "message",
-            default: []
-        }]
+            ref: "project",
+            required: true
+        },
+
     },
     {
         timestamps: true

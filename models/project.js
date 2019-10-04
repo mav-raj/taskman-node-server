@@ -7,9 +7,9 @@ const validateProject = value => {
     const schema = joi.object().keys({
         name: joi.string().required(),
         description: joi.string(),
-        tasks: joi.array().items(joi.string())
+        workspace: joi.string().required()
     });
-    return joi.validate(value, schema);
+    return schema.validate(value);
 }
 
 // schema 
@@ -22,11 +22,11 @@ const projectSchema = new mongoose.Schema(
         description: {
             type: String,
         },
-        tasks: [{
+        workspace: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "task",
+            ref: "workspace",
             required: true,
-        }]
+        }
     },
     {
         timestamps: true

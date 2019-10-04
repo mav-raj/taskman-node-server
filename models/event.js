@@ -9,7 +9,7 @@ const validateEvent = value => {
         message: joi.string().required(),
         createdFor: joi.string().required(),
     });
-    return joi.validate(value, schema);
+    return schema.validate(value);
 }
 
 // schema 

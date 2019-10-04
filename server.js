@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes
 app.use('/admin', adminRouter);
-// app.use('/user', userRouter);
+app.use('/user', userRouter);
 
 app.get('/', (req, res) => res.send('<center><h1>Server running</h1></center>'))
 
